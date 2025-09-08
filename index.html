@@ -1,47 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Charity Water Landing Page</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Charity:Water – Students Against the Water Crisis</title>
+  <!-- Beginner‑friendly: single HTML file with embedded CSS only -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Approximate brand palette from the mockup */
+      --brand-yellow: #f2c94c;
+      --brand-cream: #f6f0e3;
+      --brand-blue: #7fa6b5; /* desaturated blue/teal */
+      --brand-dark: #1f1f1f;
+      --text-muted: #334049;
+      --max-width: 1100px;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--brand-dark);
+      background: white;
+      line-height: 1.5;
+    }
+
+    /* Utility */
+    .container { width: min(100% - 2rem, var(--max-width)); margin-inline: auto; }
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 1.4rem;
+      background: var(--brand-yellow);
+      color: #1a1a1a;
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 10px;
+      transition: transform 0.15s ease, filter 0.15s ease;
+      border: 2px solid rgba(0,0,0,0.06);
+    }
+    .btn:hover { transform: translateY(-2px); filter: brightness(0.98); }
+
+    /* Header / Nav */
+    header {
+      background: var(--brand-cream);
+      position: sticky; top: 0; z-index: 10; /* stays visible */
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; padding: 0.85rem 0;
+    }
+    .brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: inherit; }
+    .brand .logo {
+      /* Logo image for the top left corner */
+      width: 36px; height: 36px; display: grid; place-items: center; border-radius: 8px; background: var(--brand-dark); border: 2px solid rgba(0,0,0,0.08);
+    }
+    .brand .wordmark { font-weight: 700; font-size: 1.1rem; letter-spacing: 0.2px; }
+
+    .links { display: flex; gap: 1.25rem; align-items: center; }
+    .links a { color: var(--brand-dark); text-decoration: none; font-weight: 600; }
+    .links a:hover { text-decoration: underline; }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(180deg, var(--brand-blue) 0%, var(--brand-blue) 70%, var(--brand-cream) 70%, var(--brand-cream) 100%);
+      padding: 3rem 0 4rem;
+    }
+    .hero-inner {
+      display: grid; align-items: center; gap: 2rem;
+      grid-template-columns: 1.2fr 1fr;
+    }
+    .eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.82rem; color: #20424f; opacity: 0.85; }
+    /* Decreased the font size of the main title below */
+    .hero h1 { font-size: 2.2rem; line-height: 1.1; margin: 0.25rem 0 1rem; color: #f8fbfc; text-shadow: 0 1px 0 rgba(0,0,0,0.06); }
+    .hero p { color: #eaf2f5; max-width: 55ch; margin-bottom: 1.4rem; }
+    /* Decreased the font size of this paragraph for beginners */
+    .hero p.intro { font-size: 1rem; }
+
+    .hero-media { display: grid; }
+    .hero-media .card {
+      background: #fff; border-radius: var(--radius);
+      padding: 0.6rem; width: min(100%, 520px); justify-self: end;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.18);
+    }
+    .hero-media img { width: 100%; height: auto; display: block; border-radius: calc(var(--radius) - 6px); }
+    .hero-actions { display: flex; align-items: center; gap: 1rem; }
+    .caption { font-size: 0.85rem; color: #5a6d77; }
+
+    /* Support section (optional content below the fold) */
+    .support {
+      padding: 3.5rem 0; background: white;
+    }
+    .support-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .card-simple {
+      padding: 1.25rem; border-radius: var(--radius);
+      border: 1px solid rgba(0,0,0,0.06); background: #fff;
+    }
+    .card-simple h3 { margin: 0.5rem 0; }
+    .muted { color: #5b5b5b; }
+
+    /* Footer */
+    footer { background: var(--brand-cream); padding: 2rem 0; border-top: 1px solid rgba(0,0,0,0.06); }
+    .foot { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; }
+    .small { font-size: 0.9rem; color: #47545c; }
+
+    /* Responsive tweaks */
+    @media (max-width: 900px) {
+      .links { display: none; } /* keep it simple for mobile */
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-media .card { justify-self: start; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Hero Section: This is the main banner at the top of the page -->
-    <section class="hero">
-        <!-- Main headline -->
-        <h1>Clean Water for Everyone</h1>
-        <!-- Subheadline -->
-        <p>Join us in bringing safe, clean water to communities in need.</p>
-    </section>
+  <!-- Header / Navigation -->
+  <header>
+    <div class="container nav" role="navigation" aria-label="Main navigation">
+      <a class="brand" href="#" aria-label="Charity:Water home">
+        <span class="logo" aria-hidden="true">
+          <!-- Logo image for the top left corner -->
+          <img src="img/water-can-transparent.png" alt="Water can logo" style="width: 28px; height: 28px;" />
+        </span>
+        <span class="wordmark">Charity:Water</span>
+      </a>
+      <nav class="links">
+        <a href="#action">Take Action</a>
+        <a href="#about">About Us</a>
+        <a href="#why">Why Water?</a>
+        <a class="btn" href="#donate">Donate</a>
+      </nav>
+    </div>
+  </header>
 
-    <!-- Story Section: This tells the story of the nonprofit -->
-    <section class="story">
-        <h2>Our Story</h2>
-        <p>
-         
-    </section>
-
-    <!-- Real-World Impact Story Section -->
-    <section class="impact-story">
-        <!-- Section headline -->
-        <h2>Real Impact: Meet Amina</h2>
-        <!-- Container for image and text -->
-        <div class="impact-content">
-            <!-- Impact image -->
-            <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80" alt="Amina smiling with clean water" class="impact-image">
-            <!-- Impact story text -->
-            <p>
-                Amina used to walk miles every day to collect water for her family. Thanks to your support, her village now has a clean water well. Amina can go to school and her family is healthier and happier.
-            </p>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <div class="eyebrow">Campus movement</div>
+        <h1>Students Against the Water Crisis</h1>
+        <!-- Decreased the font size of this paragraph for beginners -->
+        <p style="font-size: 0.9rem;">Join thousands of young changemakers proving that campus voices can bring clean and safe water to every corner of the world.</p>
+        <div class="hero-actions">
+          <a class="btn" id="donate" href="#donate">Donate</a>
+          <span class="caption">100% of your donation funds clean water projects.</span>
         </div>
-    </section>
+      </div>
+      <div class="hero-media">
+        <figure class="card" style="padding: 0; margin-left: 20px;">
+          <!-- The border and image are now shifted 20px to the right -->
+          <!-- Set image width to 100% to remove white space on the right -->
+          <img src="img/child splashing water.jpg" alt="Child splashing water" style="width: 100%;" />
+        </figure>
+      </div>
+    </div>
+  </section>
 
-    <!-- Call-to-Action Section: This encourages visitors to take action -->
-    <section class="call-to-action">
-        <h2>Make a Difference</h2>
-        <p>Your support can help save lives. Every donation brings us closer to a world with clean water for all.</p>
-        <a href="#" class="donate-button">Donate Now</a>
-    </section>
+  <!-- Simple supporting section with three quick reasons/links -->
+  <section id="action" class="support">
+    <div class="container">
+      <div class="support-grid">
+        <div class="card-simple">
+          <h3>Start a Campus Campaign</h3>
+          <p class="muted">Rally your club, team, or dorm to fund a water project. We’ll give you a toolkit to make it easy.</p>
+        </div>
+        <div class="card-simple">
+          <h3>Learn Why Water First</h3>
+          <p class="muted">Clean water changes everything—health, education, and opportunity. Share the facts with friends.</p>
+        </div>
+        <div class="card-simple">
+          <h3>See Your Impact</h3>
+          <p class="muted">Track funded wells and receive updates from the field so you can celebrate what you made possible.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container foot">
+      <p class="small">© <span id="year">2025</span> Charity:Water. All rights reserved.</p>
+      <p class="small">Made with ❤️ by student changemakers.</p>
+    </div>
+  </footer>
 </body>
 </html>
